@@ -19,7 +19,8 @@ gens = [("select", generateSel),
         ("sequence", generateSeq),
         ("curry", generateCurry),
         ("update", generateUpd),
-        ("prepend", generatePrep)
+        ("cons", generateCons),
+        ("snoc", generateSnoc)
        ]
 
 ---------
@@ -91,14 +92,26 @@ generateUpdNinst j i = do
 
 ---------
 
-generatePrep :: Int -> IO ()
-generatePrep n = mapM_ generatePrepNinst [1..n]
+generateCons :: Int -> IO ()
+generateCons n = mapM_ generateConsNinst [1..n]
 
-generatePrepNinst :: Int -> IO ()
-generatePrepNinst 1 = return ()
-generatePrepNinst i = do
-    putStrLn $ "instance Prep b" ++ " (" ++ intercalate "," ["a" ++ show l | l <- [1..i]] ++ ") " ++
-               res ++ " where prepend b (" ++
-               intercalate "," [ "a" ++ show l | l <- [1..i]] ++ ") = " ++ res
- where res =
-        "(b," ++ intercalate "," [ "a" ++ show l | l <- [1..i]] ++ ")"
+generateConsNinst :: Int -> IO ()
+generateConsNinst 1 = return ()
+generateConsNinst i = do
+    putStrLn $ "instance ConsT b (" ++ t ++ ") (b, " ++ t ++ ") where\n" ++
+               "    consT b (" ++ t ++ ") = (b, " ++ t ++ ")\n" ++
+               "    unconsT (b, " ++ t ++ ") = (b, (" ++ t ++ "))"
+ where t = intercalate "," [ "a" ++ show l | l <- [1..i]]
+
+---------
+
+generateSnoc :: Int -> IO ()
+generateSnoc n = mapM_ generateSnocNinst [1..n]
+
+generateSnocNinst :: Int -> IO ()
+generateSnocNinst 1 = return ()
+generateSnocNinst i = do
+    putStrLn $ "instance SnocT (" ++ t ++ ") b (" ++ t ++ ", b) where\n" ++
+               "    snocT (" ++ t ++ ") b = (" ++ t ++ ", b)\n" ++
+               "    unsnocT (" ++ t ++ ", b) = ((" ++ t ++ "), b)"
+ where t = intercalate "," [ "a" ++ show l | l <- [1..i]]

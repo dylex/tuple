@@ -1,14 +1,16 @@
 module Data.Tuple.All(
     module Data.Tuple.Curry,
     module Data.Tuple.OneTuple,
-    module Data.Tuple.Prepend,
     module Data.Tuple.Select,
     module Data.Tuple.Sequence,
     module Data.Tuple.Update,
+    module Data.Tuple.Cons,
+    module Data.Tuple.Snoc,
     ) where
 import Data.Tuple.Curry
 import Data.Tuple.OneTuple
-import Data.Tuple.Prepend
 import Data.Tuple.Select
 import Data.Tuple.Sequence
 import Data.Tuple.Update
+import Data.Tuple.Cons
+import Data.Tuple.Snoc

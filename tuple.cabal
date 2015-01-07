@@ -31,6 +31,8 @@ library
     Data.Tuple.Select
     Data.Tuple.Sequence
     Data.Tuple.Update
+    Data.Tuple.Cons
+    Data.Tuple.Snoc
 
   Hs-Source-Dirs:
     src
