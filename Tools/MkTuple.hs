@@ -76,7 +76,7 @@ generateUpd n = mapM_ (generateUpdN n) [1..n]
 
 generateUpdN :: Int -> Int -> IO ()
 generateUpdN n i = do
-    putStrLn $ "class Upd" ++ show i ++ " a b c | a b -> c , b c -> a where upd" ++ show i ++ " :: a -> b -> c"
+    putStrLn $ "class Sel" ++ show i ++ " c a => Upd" ++ show i ++ " a b c | a b -> c , b c -> a where upd" ++ show i ++ " :: a -> b -> c"
     mapM_ (generateUpdNinst i) [i..n]
     putStrLn ""
 
